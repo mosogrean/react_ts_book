@@ -11,6 +11,7 @@ import Page1 from './pages/Page1';
 import Page2 from './pages/Page2';
 import Page0 from './pages/Page0';
 import Login from './pages/Login';
+import FriendList from './pages/FriendList';
 
 function App(): ReactElement {
   const [isAuth, setIsAuth] = useState<boolean>(localStorage.getItem('is_auth') === 'success');
@@ -41,7 +42,7 @@ function App(): ReactElement {
         }}
         >
           <Switch>
-            <Route path="/" component={Page0} exact />
+            <Route path="/" component={FriendList} exact />
             <Route path="/login" component={Login} exact />
             <Route path="/page1" component={Page1} exact />
             <Route path="/page2" component={Page2} exact />
