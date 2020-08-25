@@ -12,7 +12,7 @@ export default function chatReducer(state = initalState, action: ChatActionTypes
     case ITEM_LOADING:
       return { ...state, isLoading: true };
     case GET_FRIEND_TABLE:
-      return { ...state, friendTable: action.payload };
+      return { ...state, friendTable: action.payload, isLoading: false };
     default:
       return { ...state };
   }

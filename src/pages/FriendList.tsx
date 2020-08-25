@@ -1,5 +1,8 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Row, Table } from 'antd';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../reducers/index';
+import { getFriendTable } from '../reducers/store/chat/actions';
 
 interface IDataSource {
   one_email: string;
@@ -46,18 +49,17 @@ const columns: Array<IColumn> = [
 ];
 
 const FriendList = (): JSX.Element => {
-  const dataSources: Array<IDataSource> = [{
-    one_email: 'sanunfa.si@one.th',
-    user_id: 'Uef604efa83ec5ebb8b545f9c789e0d2b',
-    one_id: '24681933824',
-    display_name: 'Mos-OneSpace',
-    type: 'user',
-  }];
+  const { chat } = useSelector((state: RootState) => state);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getFriendTable());
+    console.log('1', chat);
+  }, [])
   return (
     <div>
       <h1>Friend Form Bot Chat</h1>
       <Row justify="center">
-        <Table columns={columns} dataSource={dataSources} />
+        <Table columns={columns} dataSource={chat.friendTable} loading={chat.isLoading} />
       </Row>
     </div>
   );

@@ -12,6 +12,8 @@ import Page2 from './pages/Page2';
 import Page0 from './pages/Page0';
 import Login from './pages/Login';
 import FriendList from './pages/FriendList';
+import { Provider } from 'react-redux';
+import store from './store';
 
 function App(): ReactElement {
   const [isAuth, setIsAuth] = useState<boolean>(localStorage.getItem('is_auth') === 'success');
@@ -32,24 +34,26 @@ function App(): ReactElement {
   };
   return (
     <div className="App">
-      <BrowserRouter>
-        <AuthContext.Provider value={{
-          isAuth,
-          fullname,
-          userId,
-          login,
-          logout,
-        }}
-        >
-          <Switch>
-            <Route path="/" component={FriendList} exact />
-            <Route path="/login" component={Login} exact />
-            <Route path="/page1" component={Page1} exact />
-            <Route path="/page2" component={Page2} exact />
-            <Redirect to="/" exact />
-          </Switch>
-        </AuthContext.Provider>
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <AuthContext.Provider value={{
+            isAuth,
+            fullname,
+            userId,
+            login,
+            logout,
+          }}
+          >
+            <Switch>
+              <Route path="/" component={FriendList} exact />
+              <Route path="/login" component={Login} exact />
+              <Route path="/page1" component={Page1} exact />
+              <Route path="/page2" component={Page2} exact />
+              <Redirect to="/" exact />
+            </Switch>
+          </AuthContext.Provider>
+        </BrowserRouter>
+      </Provider>
     </div>
   );
 }
